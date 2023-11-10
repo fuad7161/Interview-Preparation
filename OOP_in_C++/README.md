@@ -19,6 +19,10 @@ inline is actually request to the compiler to specify the register for the funct
 **Parameterized Constructors:** It is possible to initialize the object when it is created by using parameterized constructors.
 
 **Static Data Members:**static means, when we declear a variable with **static** we are just telling the compiler that only one copy of that variable will exist and that all objects of the class will share that variable.
+**Static Member Function:**
+**Nested Classes:**
+**Passing Object to Functions:**when an objcet is passing to a function, a copy of that object is made. This means that a new object comes into existence. When the function is terminates, the copy of the argument is destroyed. As its passing the copy object thats why its not creating the constructor again when we pass object in a function.
+
 
 
 
@@ -37,4 +41,12 @@ every thing is same. But the only diffrence is that by default all members are *
 
 ## Basic Knowledge
 A class contain private and public parts. By default, all items defined in a class are **private**.
+In scope resolution operator **::** links a class name with a member name in order to tell the compler what class the member belongs to.
+        '''
+        int i;
+        main(){
+            int i;
+            ::i = 10 // refers to global i
+        }
+        '''
 
