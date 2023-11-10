@@ -2,6 +2,8 @@
 ## Union is not clear yet..
 ## Defination & Theory
 **Class:** A class is a template definition of the methods and variables in a particular kind of object.
+**Function Overloading:**It is the process of using the same name for two or more functions.
+
 **Object:**An object can be defined as a data field that has unique attributes and behavior.
 **Encapsulation:** Encapsulation is the mechanism that binds together code and the data it manipulates and keeps both safe from outside interference and misuse.
 **Polymorphism:** Polymorphism is the attribute that allows one interface to control access to a general class of actions.

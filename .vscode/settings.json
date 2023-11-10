@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "*.blade.php": "html",
+        "iostream": "cpp"
+    }
+}
