@@ -25,7 +25,7 @@ void swap_byte::set_byte(unsigned short i){
     u = i;
 }
 
-int mian(){
+int main(){
 
     swap_byte b;
     b.set_byte(49034);
