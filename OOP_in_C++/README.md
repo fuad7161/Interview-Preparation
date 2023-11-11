@@ -28,6 +28,31 @@ inline is actually request to the compiler to specify the register for the funct
 
 **Parameterized Constructors:** It is possible to initialize the object when it is created by using parameterized constructors.
 
+**Operator Function:** 
+```
+    return-type class-name::operator# (argument list){
+        // operations...
+        return return-type
+    }
+```
+
+**Operator Overloading code:**
+```
+loc operator+(loc ob, int val){
+    loc tem;
+    tem.longitude = ob.longitude + val;
+    tem.latitude = ob.latitude+val;
+    return tem;
+}
+
+loc operator+(int val , loc ob){
+    loc tem;
+    tem.longitude = ob.longitude + val;
+    tem.latitude = ob.latitude+val;
+    return tem;
+}
+```
+
 **Static Data Members:** static means, when we declear a variable with **static** we are just telling the compiler that only one copy of that variable will exist and that all objects of the class will share that variable.
 **Static Member Function:**
 
@@ -58,3 +83,4 @@ In scope resolution operator **::** links a class name with a member name in ord
             ::i = 10 // refers to global i
         }
         ```
+
