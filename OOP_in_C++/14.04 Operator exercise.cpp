@@ -1,3 +1,9 @@
+/*
+Object are access by index..
+take an array and access this array by index 
+such ar atype is a class and ob is its object now I have to use ob[index] to access the atype array 
+element.
+*/
 #include <bits/stdc++.h>
 using namespace std;
 

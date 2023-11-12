@@ -12,6 +12,36 @@
 
 **Inheritance:** Inheritance is the process by which one object can acquire the properties of anouther object.
 
+```
+class derived-class-name : access base-class-name{
+    // body of the class
+};
+```
+When the base is inherited by using the **private** access specifier, all **public** and **protected** members of the base class become **private** members of the dirved class.
+
+If we inherit a base class as **protected**. then all **public** and **protected** members of the base class become **protected** members if the dirved class.
+
+If we specify a base class as **public** in a class. then all **protected** members of the base class become **public** members if the dirved class.
+*see example in the code (15.01 , 15.02 , 15.03)*
+
+**15.06 passPrmBaseConstrutors.cpp**  
+passing parameters to base-class Constructors.. just look at the code how cool this is. :D
+
+**Virtual Base classes:** when multiple base classes are inherited. then ambiguity occure. To reduce it we can use virtual base class. **see 15.08 code**
+
+**Virtual Function:** A virtual function is a member function that is decleared within a base class and redifined by a derived class. The virtual function within the base class defines the form of the interface to that function. Each redefination of the virtual function by a derived class implements its operation as it relates specifically to the derived class. The redefination creates a specific method. **See code 16. Virtual Function.cpp**
+
+**NB:** constructor function cannot be virtual but destructor function can.
+
+**A pure Virtual Function:** A pure virtual function is a virtual function that has no definition within the base class.
+```
+virtual type func-name(parameter-list) = 0;
+```
+**See code 16.02 pure virtual function.cpp**
+
+**Abstract classes:** A class that contains at least one pure virtual function is said to be abstract. you cannot create objects of an abstract class, you can create pointers and references to an abstract class. This allows abstract classes to support **run-time polymorphism**. 
+Just look at the 16.03 Virtual Function exercise code. how cool the concept is. I am really surprised.
+
 **Constructor:** A constructor is a special funciton that is a **member of a class** and has the same name as that class.
 - Constructors will not output or input anything.
 - It is automatically called when the object is created.
@@ -35,6 +65,9 @@ inline is actually request to the compiler to specify the register for the funct
         return return-type
     }
 ```
+
+Here left side parameter is passed implicitly to the function through the this pointer.
+and the right side operand is passed as parameter
 
 **Operator Overloading code:**
 ```
@@ -83,4 +116,6 @@ In scope resolution operator **::** links a class name with a member name in ord
             ::i = 10 // refers to global i
         }
         ```
+**Run Time Polimorphism:**
 
+## Interview Question about OOP
