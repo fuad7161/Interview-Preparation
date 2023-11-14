@@ -3,5 +3,21 @@
         "*.embeddedhtml": "html",
         "*.blade.php": "html",
         "iostream": "cpp"
-    }
+    },
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "MySqlConnection",
+            "database": "db1",
+            "username": "fuad7161",
+            "password": "Fuadul11235813"
+        }
+    ]
 }
