@@ -29,6 +29,55 @@ WHERE Country = 'Germany' AND City = 'Berlin';
 SELECT * FROM Customers
 ORDER BY Country ASC, CustomerName DESC;
 ```
+### ALTER TABLE - ADD Column
+```
+ALTER TABLE Customers
+ADD Email varchar(255);
+```
+`DROP` COLUMN
+```
+ALTER TABLE Customers
+DROP COLUMN ContactName;
+```
+### ALTER TABLE - MODIFY COLUMN
+```
+ALTER TABLE Persons
+MODIFY COLUMN DateOfBirth year;
+```
+### UNIQUE Constraint on ALTER TABLE
+```
+ALTER TABLE Persons
+ADD UNIQUE (ID);
+```
+
+### FOREIGN KEY on CREATE TABLE
+```
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+);
+```
+
+### CHECK on CREATE TABLE
+```
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CHECK (Age>=18)
+);
+```
+
+### CHECK on ALTER TABLE
+```
+ALTER TABLE Persons
+ADD CHECK (Age>=18);
+```
+
 ### MySQL INSERT INTO Statement
 ```
 INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
@@ -69,6 +118,10 @@ The `DELETE` statement is used to delete existing records in a table.
 ### Delete All Records
 It is possible to delete all rows in a table without deleting the table. This means that the table structure, attributes, and indexes will be intact:
 ```DELETE FROM Customers;```
+### What is a TRUNCATE Command?
+The Truncate statement is a DDL or Data Definition Language command that is used to delete the complete data from the table without deleting the table structure. You cannot use the WHERE clause with this command; therefore, you cannot filter the records. \
+```TRUNCATE TABLE players;```
+
 ### MySQL LIMIT Clause
 The `LIMIT` clause is used to specify the number of records to return. \
 The `LIMIT` clause is useful on large tables with thousands of records. Returning a large number of records can impact performance.
@@ -233,4 +286,122 @@ FROM Customers, Orders
 WHERE Customers.CustomerName='Around the Horn' AND Customers.CustomerID=Orders.CustomerID;
 ```
 ### MySQL Joins
-A `JOIN` clause is used to combine rows from two or more tables, based on a related column between them.
+A `JOIN` clause is used to combine rows from two or more tables, based on a related column between them. \
+Notice that the "CustomerID" column in the "Orders" table refers to the "CustomerID" in the "Customers" table. The relationship between the two tables above is the "CustomerID" column.
+
+Then, we can create the following SQL statement (that contains an INNER JOIN), that selects records that have matching values in both tables:
+```
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+```
+`INNER JOIN`: Returns records that have matching values in both tables
+`LEFT JOIN`: Returns all records from the left table, and the matched records from the right table
+`RIGHT JOIN`: Returns all records from the right table, and the matched records from the left table
+`CROSS JOIN`: Returns all records from both tables
+|INNER JOIN|LEFT JOIN|RIGHT JOIN|CROSS JOIN|
+| ------------- | ------------- | ------------- | ------------- |
+| ![](https://www.w3schools.com/mysql/img_inner_join.png)  | ![](https://www.w3schools.com/mysql/img_left_join.png)  |![](https://www.w3schools.com/mysql/img_right_join.png)  | ![](https://www.w3schools.com/mysql/img_cross_join.png)  |
+
+### JOIN Three Tables
+The following SQL statement selects all orders with customer and shipper information:
+```
+SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
+FROM ((Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);
+```
+### JOIN Three Tables
+```
+SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
+FROM ((Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);
+```
+### MySQL RIGHT JOIN Example
+```
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+CROSS JOIN Orders
+WHERE Customers.CustomerID=Orders.CustomerID;
+```
+### MySQL Self Join 
+```
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City
+ORDER BY A.City;
+```
+### SQL UNION
+```
+SELECT City, Country FROM Customers
+WHERE Country='Germany'
+UNION
+SELECT City, Country FROM Suppliers
+WHERE Country='Germany'
+ORDER BY City;
+```
+### MySQL GROUP BY
+The GROUP BY statement groups rows that have the same values into summary rows, like "find the number of customers in each country". \
+The GROUP BY statement is often used with aggregate functions (COUNT(), MAX(), MIN(), SUM(), AVG()) to group the result-set by one or more columns.
+
+```
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+```
+### GROUP BY With JOIN
+The following SQL statement lists the number of orders sent by each shipper
+
+```
+SELECT Shippers.ShipperName, COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders
+LEFT JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID
+GROUP BY ShipperName;
+```
+### MySQL HAVING Clause
+The `HAVING` clause was added to SQL because the `WHERE` keyword cannot be used with aggregate functions.
+```
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5;
+```
+### The MySQL EXISTS Operator
+The `EXISTS` operator returns TRUE if the subquery returns one or more records.
+
+```
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price = 22);
+```
+
+### The ANY Operator
+`ANY` means that the condition will be true if the operation is true for any of the values in the range.
+```
+SELECT ProductName FROM Products
+WHERE ProductID = ANY (SELECT ProductID FROM OrderDetails WHERE Quantity > 1000);
+```
+### SQL ALL Examples
+```
+SELECT ProductName FROM Products
+WHERE ProductID = ALL (SELECT ProductID FROM OrderDetails WHERE Quantity = 10);
+```
+### MySQL INSERT INTO SELECT Examples
+```
+INSERT INTO Customers (CustomerName, City, Country)
+SELECT SupplierName, City, Country FROM Suppliers;
+```
+
+### The MySQL CASE Statement
+The `CASE` statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement).
+```
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+    WHEN Quantity = 30 THEN 'The quantity is 30'
+    ELSE 'The quantity is under 30'
+END AS QuantityText
+FROM OrderDetails;
+```
