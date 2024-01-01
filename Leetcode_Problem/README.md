@@ -2,7 +2,10 @@
 <h1 align="center">Linked List</h1>
 <!-- First problem done -->
 ## Design Linked List -
-[Problem link](https://leetcode.com/explore/learn/card/linked-list/209/singly-linked-list/1290) \
+
+[Problem link](https://leetcode.com/explore/learn/card/linked-list/209/singly-linked-list/1290)
+
+
 Given a Linked List class and have to build this class with all operation such as 
 - **Insert element in the front**
 - **Insert element in the given Point**
